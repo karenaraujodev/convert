@@ -7,26 +7,44 @@
 :root {
   font-family: "Inter", sans-serif;
   font-size: 16px;
+
+  /* CORES */
+  --color-text: #f1f2f6;
+  --color-placeholder: #b2b8de;
+
+  --bg-body: #141534;
+  --bg-input: #0e0f25;
+  --bg-footer: #1f2151;
+  --bg-scrollbar-track: #1f2151;
+  --bg-scrollbar-thumb: #2f3279;
+
+  --border-input: #1f2151;
+  --border-focus: #4a5dcd;
+
+  --primary: #2f34ab;
+  --primary-hover: #4a5dcd;
 }
 
+/* Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #1f2151;
+  background-color: var(--bg-scrollbar-track);
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #2f3279;
+  background-color: var(--bg-scrollbar-thumb);
 }
 
 body {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
 
   background-image: url("./img/bg.png");
-  background-size: contain;
+  background-size: cover;
+  background-position: center;
 
   display: flex;
   align-items: center;
@@ -35,19 +53,22 @@ body {
 
   gap: 3.12rem;
 
-  color: #f1f2f6;
+  color: var(--color-text);
 }
 
+/* Container principal */
 main {
-  width: 480px;
-  border-radius: 1.5rem;
+  width: 100%;
+  max-width: 480px;
 
-  border: 1px solid #2f3279;
+  border-radius: 1.5rem;
+  border: 1px solid var(--bg-scrollbar-thumb);
   overflow-y: hidden;
 }
 
+/* FORMULÁRIO */
 form {
-  background-color: #141534;
+  background-color: var(--bg-body);
 
   display: flex;
   flex-direction: column;
@@ -57,25 +78,29 @@ form {
 
 label {
   font-size: 0.75rem;
-  color: #b2b8de;
+  color: var(--color-placeholder);
   text-transform: uppercase;
+
   margin-bottom: 0.5rem;
   margin-top: 1.25rem;
 }
 
+/* Inputs e Select */
 input,
 select {
   outline: 0;
 
-  color: #f1f2f6;
-  border: 1px solid #1f2151;
+  color: var(--color-text);
+  border: 1px solid var(--border-input);
   border-radius: 0.5rem;
 
-  background-color: #0e0f25;
+  background-color: var(--bg-input);
   padding: 1.25rem 1rem;
 
   font-family: "Inter", sans-serif;
   font-size: 1rem;
+
+  transition: border 0.2s, background-color 0.2s;
 }
 
 select {
@@ -85,32 +110,32 @@ select {
 
   background: url("./img/chevron-down.svg") no-repeat;
   background-position: calc(100% - 0.75rem) center !important;
-  background-color: #0e0f25;
+  background-color: var(--bg-input);
 
   cursor: pointer;
-  font-size: 1rem;
 }
 
 input::placeholder,
 select:invalid,
 option {
-  color: #b2b8de;
+  color: var(--color-placeholder);
 }
 
 input:focus,
 select:focus {
-  border: 1px solid #4a5dcd;
+  border: 1px solid var(--border-focus);
 }
 
+/* BOTÃO */
 button {
   height: 3.25rem;
 
-  background-color: #2f34ab;
+  background-color: var(--primary);
 
   border: none;
   border-radius: 0.5rem;
 
-  color: #f1f2f6;
+  color: var(--color-text);
 
   font-family: "Inter", sans-serif;
   font-size: 1rem;
@@ -123,22 +148,28 @@ button {
 }
 
 button:hover {
-  background-color: #4a5dcd;
+  background-color: var(--primary-hover);
 }
 
 button:focus {
-  outline: 1.5px solid #4a5dcd;
+  outline: 1.5px solid var(--border-focus);
 }
 
+button:disabled {
+  background-color: var(--bg-scrollbar-track);
+  cursor: not-allowed;
+}
+
+/* RESULTADO (FOOTER) */
 footer {
-  background-color: #1f2151;
+  background-color: var(--bg-footer);
   padding: 2.5rem;
   max-height: 196px;
 
   text-align: center;
   display: none;
 
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .show-result {
@@ -154,9 +185,10 @@ footer span {
 }
 
 footer h1 {
-  color: #f1f2f6;
+  color: var(--color-text);
   font-weight: 700;
   font-size: 2rem;
   line-height: 3rem;
   word-break: break-all;
 }
+
