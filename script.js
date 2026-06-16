@@ -1,66 +1,95 @@
-const USD = 5.36
-const EUR = 6.24
-const GBP = 7.11
-
 const amount = document.querySelector("#amount");
 const form = document.querySelector("form");
 const currency = document.querySelector("#currency");
 const footer = document.querySelector("main footer")
 const description = document.querySelector("#description")
 const result = document.querySelector("#result")
+const API_KEY = "4aaf41d6b6ff958554ca5fdc"
 
 //manipula o input para receber somente números
+async function getExchangeRates(currency){
+
+    const response = await fetch (`https://v6.exchangerate-api.com/v6/${API_KEY}/latest/${currency}`); 
+    const data = await response.json();
+    return data.conversion_rates.BRL;
+}
+
 amount.addEventListener("input", function(){
     const hascharacters = /\D+/g;
     amount.value = amount.value.replace(hascharacters, "");
 })
 
 //captando o evento submit(enviar) do formulário
-form.onsubmit = (event) => {
+form.onsubmit = async(event) => {
+
     event.preventDefault()
-    switch(currency.value){
-        case "USD":
-            convertCurrency(amount.value, USD, "US$")
-            break
-        case "EUR":
-            convertCurrency(amount.value, EUR,"€")
-            break
-        case "GBP":
-            convertCurrency(amount.value, GBP,"£")
-            break
+
+    
+ try {
+
+    // Busca a cotação da moeda selecionada
+    const price = await getExchangeRates(currency.value);
+
+    // Define o símbolo da moeda
+    let symbol = "";
+
+    switch (currency.value) {
+      case "USD":
+        symbol = "US$";
+        break;
+
+      case "EUR":
+        symbol = "€";
+        break;
+
+      case "GBP":
+        symbol = "£";
+        break;
     }
+
+    // Faz a conversão usando a função que você já tinha
+    convertCurrency(amount.value, price, symbol);
+
+  } catch (error) {
+    console.log(error);
+    alert("Não foi possível obter a cotação.");
+  }
+};
+
+
+// Sua função original praticamente sem alterações
+function convertCurrency(amount, price, symbol) {
+  try {
+
+    description.textContent = `${symbol} 1 = R$ ${price}`;
+
+    let total = amount * price;
+
+    if (isNaN(total)) {
+      return alert("Digite um valor válido.");
+    }
+
+    total = formatCurrencyBRL(total).replace("R$", "");
+
+    result.textContent = `${total} Reais`;
+
+    footer.classList.add("show-result");
+
+  } catch (error) {
+
+    console.log(error);
+
+    footer.classList.remove("show-result");
+
+    alert("Não foi possível converter.");
+  }
 }
 
-// função para converter a moeda
-function convertCurrency(amount, price, symbol){
-    try{
-        // exibe a cotação da moeda selecionada
-        description.textContent = `${symbol} 1 = ${price}`
-        //faz o calculo do total
-        let total = amount * price
-        //verifica se o resultado não é um numero
-        if(isNaN(total)){
-            return alert("Por favor, digite novamente o valor para converter")
-        }
-        //formatar o valor
-        total = formatCurrencyBRL(total).replace("R$", "")
-        //exibe o resultado total
-        result.textContent = `${total} Reais`
-        //Aplica a classe que exibe o footer para mostrar o resultado
-        
-        footer.classList.add("show-result")
-    }catch(error){
-        console.log(error)
-        footer.classList.remove("show-result")
-        alert("Não foi possivel converter. Tente novamente")
-    }
-}
 
-//formata a moeda em Real 
-function formatCurrencyBRL(value){
-    //converte para numero para utilizar o toLocaleString e formata no padrão BRL
-    return Number(value).toLocaleString("pt-BR", {
-  style: "currency",
-  currency: "BRL",
-});
+// Formata para Real
+function formatCurrencyBRL(value) {
+  return Number(value).toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
 }
