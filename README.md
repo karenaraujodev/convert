@@ -8,7 +8,7 @@ O objetivo é criar um **conversor de moedas** simples e funcional, que mostra o
 ## 🖥️ Sobre o projeto
 
 O **Convert** é um site que permite converter valores entre diferentes moedas.  
-Ele foi criado para treinar manipulação do **DOM**, uso de **eventos em JavaScript** e boas práticas no desenvolvimento de formulários.
+Ele foi criado para treinar manipulação do **DOM**, uso de **eventos em JavaScript**, boas práticas no desenvolvimento de formulários e implementação de API.
 
 ---
 
@@ -16,7 +16,7 @@ Ele foi criado para treinar manipulação do **DOM**, uso de **eventos em JavaSc
 
 - HTML  
 - CSS  
-- JavaScript  
+- JavaScript 
 
 ---
 
@@ -34,13 +34,20 @@ Durante o desenvolvimento deste projeto, eu aprendi a:
 - Capturar valores digitados em um input  
 - Fazer cálculos e mostrar o resultado na tela  
 - Trabalhar com eventos, funções e boas práticas de código  
-- Criar uma interface simples e organizada com CSS  
+- Criar uma interface simples e organizada com CSS
+- Fazer uma requisição com fetch()
+- Usar uma função async
+- Entender o papel do await
+- Receber uma resposta em JSON
+- Transformar o JSON em um objeto JavaScript
+- Navegar pelas propriedades do objeto
+- Encontrar um dado específico (data.conversion_rates.BRL)
 
 ---
 
 ## 🧠 Próximos passos
 
-- Adicionar mais moedas e taxas de conversão dinâmicas  
+- Adicionar mais moedas e taxas de conversão dinâmicas 
 - Melhorar o design e deixar o site responsivo  
 - Adicionar uma API de câmbio para conversões reais  
 
